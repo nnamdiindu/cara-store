@@ -1,0 +1,4 @@
+instance
+.env
+__pycache__/
+tsk4.code-workspace

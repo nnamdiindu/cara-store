@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+        <!-- <div class="toggle"><a href="#"><i class="bx bx-moon toggle-icon"></i></a> </li>
+        </div> -->
+        <div class="menu-Icon">
+            <i class='bx bx-menu-alt-right' id="menu-Icon"></i>
+        </div>
+    </header>
+    <section class="shop-head" >
+        <div>
+            <h2>#stayhome</h2>
+            <h5>Save more like coupons & up to 70% off! </h5>
+        </div>
+    </section>
+    <section>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p class="flash text-danger">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% for collection in collections %}
+        <div class="products">
+            <div class="cartoon" id="ducts">
+                <img src="{{ url_for('serve_collection_image', collection_id=collection.id) }}" 
+                 alt="{{ collection.brand_name }}" 
+                 loading="lazy">
+                <h5>{{ collection.brand_name }}</h5>
+                <h3>{{ collection.description }}</h3>
+                <div class="star-rate">
+                    <i class="fa-sharp fa-solid fa-star" style="color: #ffc72e;"></i>
+                    <i class="fa-sharp fa-solid fa-star" style="color: #ffc72e;"></i>
+                    <i class="fa-sharp fa-solid fa-star" style="color: #ffc72e;"></i>
+                    <i class="fa-sharp fa-solid fa-star" style="color: #ffc72e;"></i>
+                    <i class="fa-sharp fa-solid fa-star" style="color: #ffc72e;"></i>
+                </div>
+                <div class="doll">
+                    <h4>₦{{ "{:,.2f}".format(collection.amount) }}</h4>
+                    <a href="{{ url_for('checkout_page', collection_id=collection.id) }}">
+                        <h4><i class="fa-solid fa-cart-plus fa-shake" style="color: #2f9d31;"></i></h4>
+                    </a>
+                </div>
+                    
+                {% if current_user.id == 1 %}
+                <a href="{{ url_for('edit_collection', collection_id=collection.id) }}"><button>Edit</button></a>
+                <a href="{{ url_for('delete_collection', collection_id=collection.id) }}"><button>Delete</button></a>
+
+                
+                {% endif %}
+            </div>
+            {% endfor %}
+        </section>
+
+
+
+    <section class="signup">
+        <div class="sign">
+            <h2>Sign Up For Newsletters</h2>
+            <h5>Get E-mail updates about our latest shop and <span>special offers.</span></h5>
+        </div>
+        <div class="box">
+            <input type="text" placeholder="Your email address">
+            <button type="submit">Sign Up</button>
+        </div>
+    </section>
+{% endblock %}
